@@ -1,39 +1,37 @@
 import Phaser from 'phaser';
-import logoImg from './assets/logo.png';
 
-class MyGame extends Phaser.Scene
-{
-    constructor ()
-    {
-        super();
-    }
+class MyGame extends Phaser.Scene {
+  constructor() {
+    super();
+  }
 
-    preload ()
-    {
-        this.load.image('logo', logoImg);
-    }
-      
-    create ()
-    {
-        const logo = this.add.image(400, 150, 'logo');
-      
-        this.tweens.add({
-            targets: logo,
-            y: 450,
-            duration: 2000,
-            ease: "Power2",
-            yoyo: true,
-            loop: -1
-        });
-    }
+  preload() {
+    this.load.spritesheet('rebel', './src/assets/rebel.png', {
+      frameWidth: 500,
+      frameHeight: 500
+    });
+  }
+
+  create() {
+    this.rebel = this.add.sprite(300, 300, 'rebel');
+
+    this.anims.create({
+      key: 'rebel_anim',
+      frames: this.anims.generateFrameNumbers('rebel'),
+      frameRate: 10,
+      repeat: -1
+    });
+
+    this.rebel.play('rebel_anim');
+  }
 }
 
 const config = {
-    type: Phaser.AUTO,
-    parent: 'phaser-example',
-    width: 800,
-    height: 600,
-    scene: MyGame
+  type: Phaser.AUTO,
+  parent: 'phaser-example',
+  width: 1200,
+  height: 600,
+  scene: MyGame
 };
 
 const game = new Phaser.Game(config);
