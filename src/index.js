@@ -6,7 +6,7 @@ class MyGame extends Phaser.Scene {
   }
 
   preload() {
-    this.load.spritesheet('rebel', './src/assets/rebel.png', {
+    this.load.spritesheet('rebel', './src/assets/dream.png', {
       frameWidth: 500,
       frameHeight: 500
     });
@@ -27,15 +27,16 @@ class MyGame extends Phaser.Scene {
     this.rebel = this.add.sprite(300, 200, 'rebel').setDepth(5);
     this.anims.create({
       key: 'rebel_anim',
-      frames: this.anims.generateFrameNumbers('rebel'),
+      frames: this.anims.generateFrameNumbers('rebel',
+        {start: 3, end: 4}),
       frameRate: 10,
       repeat: -1
     }); 
     
     // Road
-    this.road = this.add.sprite(100, 325, 'road').setDepth(4);
-    this.road2 = this.add.sprite(500, 325, 'road').setDepth(4);
-    this.road3 = this.add.sprite(1000, 325, 'road').setDepth(4);
+    this.road = this.add.sprite(100, 360, 'road').setDepth(4);
+    this.road2 = this.add.sprite(500, 360, 'road').setDepth(4);
+    this.road3 = this.add.sprite(1000, 360, 'road').setDepth(4);
 
     this.anims.create({
       key: 'road_anim',
@@ -45,10 +46,9 @@ class MyGame extends Phaser.Scene {
     });
 
     // BG
-    this.bg = this.add.image(250, 250, 'bg').setDepth(0);
-    this.bg = this.add.image(700, 250, 'bg').setDepth(0);
-    this.bg = this.add.image(1000, 250, 'bg').setDepth(0);
-
+    this.bg = this.add.image(250, 240, 'bg').setDepth(0);
+    this.bg = this.add.image(700, 240, 'bg').setDepth(0);
+    this.bg = this.add.image(1000, 240, 'bg').setDepth(0);
 
     this.rebel.play('rebel_anim');
     this.road.play('road_anim');
