@@ -3,13 +3,16 @@ import Phaser from 'phaser';
 class MyGame extends Phaser.Scene {
   constructor() {
     super();
+    var instruction;
   }
 
   preload() {
+    // this.load.audio('bgm', [ './src/assets/bgm.ogg', './src/assets/bgm.mp3' ]);
     this.load.image('asphalt', './src/assets/asphalt.png');
     this.load.image('beach', './src/assets/beach.png');
     this.load.image('ocean', './src/assets/ocean.png');
     this.load.image('cloud', './src/assets/cloud.png');
+    this.load.image('crowd', './src/assets/crowd.png');
 
     this.load.spritesheet('rebel', './src/assets/rebel.png', {
       frameWidth: 500,
@@ -17,7 +20,13 @@ class MyGame extends Phaser.Scene {
     });
   }
 
+
+
   create() {
+    // this.music = this.sound.add('bgm');
+    // this.cache.isSoundDecoded("bgm");
+    // this.music.play();
+
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     this.rebel = this.add.sprite(300, 200, 'rebel').setDepth(5);
 
@@ -31,7 +40,7 @@ class MyGame extends Phaser.Scene {
       key: 'move_anim',
       frames: this.anims.generateFrameNumbers('rebel', {start: 1, end: 3}),
       frameRate: 12,
-      repeat: -1
+      repeat: -1,
     });
 
     this.anims.create({
@@ -52,6 +61,9 @@ class MyGame extends Phaser.Scene {
     
     this.cloud = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'cloud')
       .setOrigin(0, 0).setScrollFactor(0).setDepth(1);
+
+    this.crowd = this.add.tileSprite(0, 210, game.config.width, game.config.height, 'crowd')
+      .setOrigin(0, 0).setScrollFactor(0).setDepth(3);
   }
 
   update() {
@@ -65,12 +77,15 @@ class MyGame extends Phaser.Scene {
       }
     } else {
       this.rebel.play('idle', true);
+      this.add.text(game.config.width - 160, 20, 'Up, Up + Shift').setDepth(6);
     }
+
   }
 
   settingMove() {
     this.asphalt.tilePositionX += 8;
     this.beach.tilePositionX += 6;
+    this.crowd.tilePositionX += 4;
     this.ocean.tilePositionX += 3;
     this.cloud.tilePositionX += 0.2;
   }
