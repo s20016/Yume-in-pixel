@@ -9,6 +9,7 @@ class MyGame extends Phaser.Scene {
     this.load.image('asphalt', './src/assets/asphalt.png');
     this.load.image('beach', './src/assets/beach.png');
     this.load.image('ocean', './src/assets/ocean.png');
+    this.load.image('cloud', './src/assets/cloud.png');
 
     this.load.spritesheet('rebel', './src/assets/rebel.png', {
       frameWidth: 500,
@@ -48,6 +49,9 @@ class MyGame extends Phaser.Scene {
 
     this.ocean = this.add.tileSprite(0, 325, game.config.width, game.config.height, 'ocean')
       .setOrigin(0, 0).setScrollFactor(0).setDepth(2);
+    
+    this.cloud = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'cloud')
+      .setOrigin(0, 0).setScrollFactor(0).setDepth(1);
   }
 
   update() {
@@ -68,6 +72,7 @@ class MyGame extends Phaser.Scene {
     this.asphalt.tilePositionX += 8;
     this.beach.tilePositionX += 6;
     this.ocean.tilePositionX += 3;
+    this.cloud.tilePositionX += 0.2;
   }
 }
 
@@ -76,6 +81,6 @@ const game = new Phaser.Game({
   parent: 'phaser-example',
   width: 1200,
   height: 500,
-  backgroundColor: '#99d6f0',
+  backgroundColor: '#88d0ef',
   scene: MyGame
 });
