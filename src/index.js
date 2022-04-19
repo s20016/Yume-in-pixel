@@ -3,11 +3,10 @@ import Phaser from 'phaser';
 class MyGame extends Phaser.Scene {
   constructor() {
     super();
-    var instruction;
   }
 
   preload() {
-    // this.load.audio('bgm', [ './src/assets/bgm.ogg', './src/assets/bgm.mp3' ]);
+    this.load.audio('bgm', [ './src/assets/bgm.ogg', './src/assets/bgm.mp3' ]);
     this.load.image('asphalt', './src/assets/asphalt.png');
     this.load.image('beach', './src/assets/beach.png');
     this.load.image('ocean', './src/assets/ocean.png');
@@ -38,14 +37,21 @@ class MyGame extends Phaser.Scene {
 
     this.anims.create({
       key: 'move_anim',
-      frames: this.anims.generateFrameNumbers('rebel', {start: 1, end: 3}),
+      frames: this.anims.generateFrameNumbers('rebel', {start: 3, end: 5}),
       frameRate: 12,
       repeat: -1,
     });
 
     this.anims.create({
+      key: 'back_anim',
+      frames: this.anims.generateFrameNumbers('rebel', {start: 1, end: 2}),
+      frameRate: 3,
+      repeat: -1,
+    });
+
+    this.anims.create({
       key: 'kato_anim',
-      frames: this.anims.generateFrameNumbers('rebel', {start: 4, end: 5}),
+      frames: this.anims.generateFrameNumbers('rebel', {start: 6, end: 7}),
       frameRate: 10,
       repeat: -1
     }); 
@@ -62,7 +68,7 @@ class MyGame extends Phaser.Scene {
     this.cloud = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'cloud')
       .setOrigin(0, 0).setScrollFactor(0).setDepth(1);
 
-    this.crowd = this.add.tileSprite(0, 210, game.config.width, game.config.height, 'crowd')
+    this.crowd = this.add.tileSprite(0, -100, game.config.width, 500, 'crowd')
       .setOrigin(0, 0).setScrollFactor(0).setDepth(3);
   }
 
@@ -70,24 +76,35 @@ class MyGame extends Phaser.Scene {
     if (this.cursorKeys.up.isDown) {
       if (this.cursorKeys.shift.isDown) {
         this.rebel.play('kato_anim', true)
-        this.settingMove();
+        this.forwardMove();
       } else {
         this.rebel.play('move_anim', true);
-        this.settingMove();
+        this.forwardMove();
       }
+    } else if (this.cursorKeys.down.isDown) {
+        this.rebel.play('back_anim', true);
+        this.backwardMove();
     } else {
       this.rebel.play('idle', true);
-      this.add.text(game.config.width - 160, 20, 'Up, Up + Shift').setDepth(6);
+      // this.add.text(game.config.width - 160, 20, 'Up, Up + Shift').setDepth(6);
     }
 
   }
 
-  settingMove() {
+  forwardMove() {
     this.asphalt.tilePositionX += 8;
     this.beach.tilePositionX += 6;
     this.crowd.tilePositionX += 4;
     this.ocean.tilePositionX += 3;
-    this.cloud.tilePositionX += 0.2;
+    this.cloud.tilePositionX += .2;
+  }
+
+  backwardMove() {
+    this.asphalt.tilePositionX -= 1;
+    this.beach.tilePositionX -= .6;
+    this.crowd.tilePositionX -= .8;
+    this.ocean.tilePositionX -= .5;
+    this.cloud.tilePositionX -= .1;
   }
 }
 
