@@ -68,7 +68,7 @@ class MyGame extends Phaser.Scene {
     this.cloud = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'cloud')
       .setOrigin(0, 0).setScrollFactor(0).setDepth(1);
 
-    this.crowd = this.add.tileSprite(0, -100, game.config.width, 500, 'crowd')
+    this.crowd = this.add.tileSprite(0, 0, game.config.width, 500, 'crowd')
       .setOrigin(0, 0).setScrollFactor(0).setDepth(3);
   }
 
