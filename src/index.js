@@ -86,7 +86,7 @@ class MyGame extends Phaser.Scene {
         this.backwardMove();
     } else {
       this.rebel.play('idle', true);
-      // this.add.text(game.config.width - 160, 20, 'Up, Up + Shift').setDepth(6);
+      // this.add.text(game.config.width - 230, 20, 'Press Up or Down. Shift for surprise').setDepth(7);
     }
 
   }
