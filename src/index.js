@@ -22,9 +22,9 @@ class MyGame extends Phaser.Scene {
 
 
   create() {
-    // this.music = this.sound.add('bgm');
+    this.music = this.sound.add('bgm');
     // this.cache.isSoundDecoded("bgm");
-    // this.music.play();
+    this.music.play();
 
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     this.rebel = this.add.sprite(300, 200, 'rebel').setDepth(5);
