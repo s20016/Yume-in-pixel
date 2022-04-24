@@ -14,8 +14,8 @@ class MyGame extends Phaser.Scene {
     this.load.image('crowd', './src/assets/crowd.png');
 
     this.load.spritesheet('rebel', './src/assets/rebel.png', {
-      frameWidth: 500,
-      frameHeight: 500
+      frameWidth: 410,
+      frameHeight: 300
     });
 
     // Loader
@@ -81,8 +81,6 @@ class MyGame extends Phaser.Scene {
     });
   }
 
-
-
   create() {
     // BGM
     this.music = this.sound.add('bgm');
@@ -92,7 +90,7 @@ class MyGame extends Phaser.Scene {
     this.cursorKeys = this.input.keyboard.createCursorKeys();
 
     // Main image
-    this.rebel = this.add.sprite(300, 200, 'rebel').setDepth(5);
+    this.rebel = this.add.sprite(300, 290, 'rebel').setDepth(5);
 
     // Animations
     this.anims.create({
@@ -122,6 +120,13 @@ class MyGame extends Phaser.Scene {
       repeat: -1
     });
 
+    this.anims.create({
+      key: 'christine_anim',
+      frames: this.anims.generateFrameNumbers('rebel', { start: 8, end: 9 }),
+      frameRate: 10,
+      repeat: -1
+    });
+
     // Parallex images
     this.asphalt = this.add.tileSprite(0, 400, game.config.width, game.config.height, 'asphalt')
       .setOrigin(0, 0).setScrollFactor(0).setDepth(4);
@@ -137,17 +142,19 @@ class MyGame extends Phaser.Scene {
 
     this.crowd = this.add.tileSprite(0, 0, game.config.width, 500, 'crowd')
       .setOrigin(0, 0).setScrollFactor(0).setDepth(3);
+  
   }
 
   update() {
     if (this.cursorKeys.up.isDown) {
       if (this.cursorKeys.shift.isDown) {
         this.rebel.play('kato_anim', true)
-        this.forwardMove();
+      } else if (this.cursorKeys.space.isDown) {
+        this.rebel.play('christine_anim', true)
       } else {
         this.rebel.play('move_anim', true);
-        this.forwardMove();
       }
+      this.forwardMove();
     } else if (this.cursorKeys.down.isDown) {
       this.rebel.play('back_anim', true);
       this.backwardMove();
@@ -155,7 +162,14 @@ class MyGame extends Phaser.Scene {
       this.rebel.play('idle', true);
       // this.add.text(game.config.width - 230, 20, 'Press Up or Down. Shift for surprise').setDepth(7);
     }
+    
 
+    let msgToAlien = this.add.text(game.config.width - 210, game.config.height - 40, 'Panget mo Alien ❤️')
+      .setDepth(10).setVisible(false);
+
+    if (this.cursorKeys.space.isDown) {
+      msgToAlien.setVisible(true);
+    } 
   }
 
   forwardMove() {
