@@ -5,6 +5,8 @@
 
 ![stella-to-ore](./src/assets/oresamadesu.png)
 
+### Control
+↑　↓　Shift+↑　Space+↑ 
 
 HTML5 Game Framework: [Phaser3](https://phaser.io/phaser3)  
 Apps used to create canvas: [Piskel](https://www.piskelapp.com/)
